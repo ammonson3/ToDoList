@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 
 const Task = (props) => {
-  const { text, isCompleted, onPress } = props;
+  const { text, isCompleted, onPress, onPress2 } = props;
 
   return (
     <TouchableOpacity onPress={onPress}>
@@ -15,6 +16,11 @@ const Task = (props) => {
         >
           {text}
         </Text>
+        <TouchableOpacity onPress={onPress2}>
+          <View style={styles.deleted}>
+            {<AntDesign name="closecircleo" size={24} color="#8DDFDA" />}
+          </View>
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );

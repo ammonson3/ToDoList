@@ -41,6 +41,10 @@ export default function App() {
     return !task.isCompleted;
   }
 
+  function checkUndeleted(task) {
+    return !task.isDeleted;
+  }
+
   const onTaskPress = (index) => {
     const updatedTasks = [...taskItems];
     updatedTasks[index].isCompleted = !updatedTasks[index].isCompleted;
@@ -49,6 +53,14 @@ export default function App() {
     const updatedTasks2 = [...uncompletedTasks, ...completedTasks];
     setTaskItems(updatedTasks2);
     saveTasks(updatedTasks2);
+  };
+
+  const onDeletePress = (index) => {
+    const updatedItems = [...taskItems];
+    updatedItems[index].isDeleted = !updatedItems[index].isDeleted;
+    const undeletedItems = updatedItems.filter(checkUndeleted);
+    setTaskItems(undeletedItems);
+    saveTasks(undeletedItems);
   };
 
   useEffect(() => {
@@ -79,7 +91,9 @@ export default function App() {
               key={index}
               text={item.text}
               onPress={() => onTaskPress(index)}
+              onPress2={() => onDeletePress(index)}
               isCompleted={item.isCompleted}
+              isDeleted={item.isDeleted}
             />
           )}
           keyExtractor={(_, i) => i}
